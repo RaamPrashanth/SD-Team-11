@@ -29,7 +29,7 @@ vcList.append(input)
 input = Vc(19.17278, 0.31885, 18.110, -7.9525, 0.23095, 0.010425, 0.130175, 1.218, 19.7908)
 vcList.append(input)
 
-with open('test.csv', 'wb') as myfile:
+with open('output.csv', 'wb') as myfile:
     wr = csv.writer(myfile, quoting=csv.QUOTE_MINIMAL)
     wr.writerow([' ',constants.VELOCITY, constants.LANE_POS, constants.SPEED, constants.STEER, constants.ACCEL,
                   constants.BRAKE, constants.LONG_ACCEL, constants.HEADWAY_TIME, constants.HEADWAY_DIST, constants.USER, constants.MODE,
