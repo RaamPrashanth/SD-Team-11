@@ -10,7 +10,7 @@ import constants
 #input -
 #output - list of Vh, list of Vc both of size 40
 
-#mergin and generating csv
+#merging and generating csv
 #input - list of Vh, list of Vc both of size 40
 #output - csv file
 output = Vh(1, 19.56165, 0, 9.29, 4, 1)
