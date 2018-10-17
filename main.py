@@ -29,17 +29,14 @@ vcList.append(input)
 input = Vc(19.17278, 0.31885, 18.110, -7.9525, 0.23095, 0.010425, 0.130175, 1.218, 19.7908)
 vcList.append(input)
 
-print "output"
-for x in vhList:
-    print "speed " + str(x.speed)
-
-
-with open('output.csv', 'wb') as myfile:
+with open('test.csv', 'wb') as myfile:
     wr = csv.writer(myfile, quoting=csv.QUOTE_MINIMAL)
-    wr.writerow([constants.VELOCITY, constants.LANE_POS, constants.SPEED, constants.STEER, constants.ACCEL,
+    wr.writerow([' ',constants.VELOCITY, constants.LANE_POS, constants.SPEED, constants.STEER, constants.ACCEL,
                   constants.BRAKE, constants.LONG_ACCEL, constants.HEADWAY_TIME, constants.HEADWAY_DIST, constants.USER, constants.MODE,
                   constants.SPEED, constants.NOE, constants.RESPONSE_TIME, constants.NOS])
+    i=0;
     for vc, vh in zip(vcList, vhList):
-        wr.writerow([vc.velocity, vc.lanepos, vc.speed, vc.steer, vc.accel, vc.brake, vc.longAccel, vc.headwayTime, vc.headwayDist,
+        wr.writerow([i,vc.velocity, vc.lanepos, vc.speed, vc.steer, vc.accel, vc.brake, vc.longAccel, vc.headwayTime, vc.headwayDist,
                      vh.student, vh.mode, vh.speed, vh.noe, vh.responseTime, vh.nos])
+        i += 1
 
