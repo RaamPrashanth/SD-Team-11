@@ -34,7 +34,7 @@ for x in vhList:
     print "speed " + str(x.speed)
 
 
-with open('test.csv', 'wb') as myfile:
+with open('output.csv', 'wb') as myfile:
     wr = csv.writer(myfile, quoting=csv.QUOTE_MINIMAL)
     wr.writerow([constants.VELOCITY, constants.LANE_POS, constants.SPEED, constants.STEER, constants.ACCEL,
                   constants.BRAKE, constants.LONG_ACCEL, constants.HEADWAY_TIME, constants.HEADWAY_DIST, constants.USER, constants.MODE,
