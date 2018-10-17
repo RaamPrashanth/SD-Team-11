@@ -2,13 +2,27 @@ from model import Vh
 from model import Vc
 import csv
 import constants
+
+def mergeAndWriteToCsv(vcList, vhList) :
+    with open(constants.OUTPUT_FILE, 'wb') as myfile:
+        wr = csv.writer(myfile, quoting=csv.QUOTE_MINIMAL)
+        wr.writerow([' ',constants.VELOCITY, constants.LANE_POS, constants.SPEED, constants.STEER, constants.ACCEL,
+                      constants.BRAKE, constants.LONG_ACCEL, constants.HEADWAY_TIME, constants.HEADWAY_DIST, constants.USER, constants.MODE,
+                      constants.SPEED, constants.NOE, constants.RESPONSE_TIME, constants.NOS])
+        i=0;
+        for vc, vh in zip(vcList, vhList):
+            wr.writerow([i,vc.velocity, vc.lanepos, vc.speed, vc.steer, vc.accel, vc.brake, vc.longAccel, vc.headwayTime, vc.headwayDist,
+                         vh.student, vh.mode, vh.speed, vh.noe, vh.responseTime, vh.nos])
+            i += 1
 #reading
 #input - csv files
 #output -
+#getUnformatedVHList()
 
 #processing
 #input -
 #output - list of Vh, list of Vc both of size 40
+#vhList = getVHList()
 
 #merging and generating csv
 #input - list of Vh, list of Vc both of size 40
@@ -28,15 +42,7 @@ input = Vc(18.1229, 0.1851, 10.83323, -12.47, 0.185525, 0.03245, -0.153975, 3.95
 vcList.append(input)
 input = Vc(19.17278, 0.31885, 18.110, -7.9525, 0.23095, 0.010425, 0.130175, 1.218, 19.7908)
 vcList.append(input)
+mergeAndWriteToCsv(vcList, vhList)
 
-with open('output.csv', 'wb') as myfile:
-    wr = csv.writer(myfile, quoting=csv.QUOTE_MINIMAL)
-    wr.writerow([' ',constants.VELOCITY, constants.LANE_POS, constants.SPEED, constants.STEER, constants.ACCEL,
-                  constants.BRAKE, constants.LONG_ACCEL, constants.HEADWAY_TIME, constants.HEADWAY_DIST, constants.USER, constants.MODE,
-                  constants.SPEED, constants.NOE, constants.RESPONSE_TIME, constants.NOS])
-    i=0;
-    for vc, vh in zip(vcList, vhList):
-        wr.writerow([i,vc.velocity, vc.lanepos, vc.speed, vc.steer, vc.accel, vc.brake, vc.longAccel, vc.headwayTime, vc.headwayDist,
-                     vh.student, vh.mode, vh.speed, vh.noe, vh.responseTime, vh.nos])
-        i += 1
+
 
