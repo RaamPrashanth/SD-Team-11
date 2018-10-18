@@ -28,6 +28,6 @@ class Vc:
                   , self.headwayTime + vc1.headwayTime, self.headwayDist + vc1.headwayDist)
 
     def __div__(self, value):
-        return Vc(self.velocity / value, self.lanepos / value, self.speed / value
-                  , self.steer / value, self.accel / value, self.brake / value
-                  , self.longAccel / value, self.headwayTime / value, self.headwayDist / value)
+        return Vc(self.velocity / value, self.lanepos / value, self.speed / value,
+                  self.steer / value, self.accel / value, self.brake / value,
+                  self.longAccel / value, self.headwayTime / value, self.headwayDist / value)
