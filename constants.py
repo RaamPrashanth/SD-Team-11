@@ -14,3 +14,5 @@ NOE = "Number of Errors"
 RESPONSE_TIME = "Response Time"
 NOS = "Number of Steps"
 OUTPUT_FILE = "data/output.csv"
+NUMBER_OF_STUDENTS = 30
+NUMBER_OF_MODES = 3

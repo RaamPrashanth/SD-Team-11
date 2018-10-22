@@ -1,6 +1,5 @@
 import csv
 import os
-import re
 
 import numpy as np
 from openpyxl import load_workbook
@@ -9,15 +8,12 @@ import constants
 from model import Vc
 from model import Vh
 
-NUMBER_OF_STUDENTS = 30
-NUMBER_OF_MODES = 3
-
 
 def read_input():
     combined_input = []
-    for i in range(1, NUMBER_OF_STUDENTS + 1):
+    for i in range(1, constants.NUMBER_OF_STUDENTS + 1):
         mode_input = []
-        for j in range(1, NUMBER_OF_MODES + 1):
+        for j in range(1, constants.NUMBER_OF_MODES + 1):
             file_path = 'data/mode' + `j` + '/Student' + `i` + 'Mode' + `j` + '/'
             file_size = 0
             max_file_path = ''
@@ -28,6 +24,7 @@ def read_input():
                     if file_size < size:
                         file_size = size
                         max_file_path = curr_file_path
+
             mode_input.append(readDataFile(max_file_path))
         combined_input.append(mode_input)
     return combined_input
@@ -46,7 +43,7 @@ def readDataFile(file_path=''):
             items = []
             cols = line.split('\t')
             for colNo in colNos:
-                if re.match("^\d+?\.\d+?$", cols[colNo]) is None and not (cols[colNo].isdigit()):
+                if cols[colNo] is '-':
                     items.append(0)
                 else:
                     items.append(float(cols[colNo]))
@@ -58,22 +55,32 @@ def readDataFile(file_path=''):
 
 def split_data_sections(data, n):
     section = []
-    section_size = len(data) / float(n)
+
     last = 0
-    count = 0
-    final_section_size = section_size + (len(data) % section_size)
+    i = 0
+    rem = len(data) % n
+    padding_size = n - rem
+    section_size = len(data) / n
+    if rem < n / 2:
+        padding_size = 0
+    else:
+        section_size += 1
 
-    while last < len(data) - 1:
-        count = count + 1
-        if count == n:
-            single_section = data[int(last):len(data)]
-        else:
-            single_section = data[int(last):int(last + section_size)]
-            single_section = addPadding(single_section, final_section_size - section_size);
+    add_padding(data, padding_size)
 
+    while i < n:
+        single_section = data[int(last):int(last + section_size)]
         section.append(get_average(single_section))
         last = last + section_size
+        i += 1
     return section
+
+
+def add_padding(data, padding_size):
+    empty_vc = Vc(0, 0, 0, 0, 0, 0, 0, 0, 0)
+    while padding_size != 0:
+        data.append(empty_vc)
+        padding_size = padding_size - 1
 
 
 def addPadding(single_section, padding_size):
@@ -95,15 +102,15 @@ def getVC():
     total_vc = read_input()
     final_vc = []
     # split vc in groups of 6 for students 1-5
-    for i in range(0, 5):
+    for i in range(0, 1):
         student = total_vc[i]
-        for j in range(0, NUMBER_OF_MODES):
+        for j in range(0, constants.NUMBER_OF_MODES):
             final_vc.append(split_data_sections(student[j], 6))
 
     # split vc in groups of 5 for students 6, 7, 8, 10
     for i in range(5, 8):
         student = total_vc[i]
-        for j in range(0, NUMBER_OF_MODES):
+        for j in range(0, constants.NUMBER_OF_MODES):
             final_vc.append(split_data_sections(student[j], 5))
 
     final_vc.append(split_data_sections(total_vc[9][0], 5))
@@ -116,9 +123,9 @@ def getVC():
     final_vc.append(split_data_sections(total_vc[8][2], 5))
 
     # split vc in groups of 6 for students 11-30
-    for i in range(10, NUMBER_OF_STUDENTS):
+    for i in range(10, constants.NUMBER_OF_STUDENTS):
         student = total_vc[i]
-        for j in range(0, NUMBER_OF_MODES):
+        for j in range(0, constants.NUMBER_OF_MODES):
             final_vc.append(split_data_sections(student[j], 6))
 
     return final_vc
