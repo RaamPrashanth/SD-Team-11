@@ -83,10 +83,6 @@ def add_padding(data, padding_size):
         padding_size = padding_size - 1
 
 
-def addPadding(single_section, padding_size):
-    return np.pad(single_section, [(0, padding_size)], mode='constant')
-
-
 def get_average(section):
     vc_mean = Vc(0, 0, 0, 0, 0, 0, 0, 0, 0)
     for single_object in section:
@@ -136,7 +132,7 @@ def getVH():
     Read from output sheet (.xlsx)
     You need openpyxl package
     """
-    filename = "/Users/anusha/PycharmProjects/svvt/SD-Team-11/data/Vh_Output_Data.xlsx"
+    filename = "data/Vh_Output_Data.xlsx"
     wb = load_workbook(filename)
     sheet = wb.active
     max_row = sheet.max_row
